@@ -7,7 +7,9 @@ import { deleteComment } from "../../actions/post";
 
 const CommentItem = ({
   postId,
-  comment: { _id, text, name, avatar, user, date, auth }
+  auth,
+  comment: { _id, text, name, avatar, user, date },
+  deleteComment,
 }) => {
   return (
     <div className="post bg-white p-1 my-1">
@@ -26,7 +28,7 @@ const CommentItem = ({
           <button
             type="button"
             className="btn btn-danger"
-            //onClick={() => DeleteComment(postId, _id)}
+            onClick={() => deleteComment(postId, _id)}
           >
             <i className="fas fa-times"></i>
           </button>
@@ -37,17 +39,14 @@ const CommentItem = ({
 };
 
 CommentItem.propTypes = {
-  postId: PropTypes.number.isRequired,
+  postId: PropTypes.string.isRequired,
   comment: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  deleteComment: PropTypes.func.isRequired
+  deleteComment: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
-export default connect(
-  mapStateToProps,
-  { deleteComment }
-)(CommentItem);
+export default connect(mapStateToProps, { deleteComment })(CommentItem);

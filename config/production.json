@@ -1,0 +1,6 @@
+{
+  "mongoURI": "mongodb+srv://seunjay:opeyemi@cluster0-aggek.azure.mongodb.net/test?retryWrites=true",
+  "jwtSecret": "mysecrettoken",
+  "githubClientId": "669a6c3438f5bf42edf1",
+  "githubSecret": "15c5c654653023083712b4fd55f4d7f84c540d06"
+}
