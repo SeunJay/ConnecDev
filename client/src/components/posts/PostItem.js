@@ -13,10 +13,11 @@ const PostItem = ({
   auth,
   post: { _id, text, name, avatar, user, likes, comments, date }
 }) => {
+
   return (
     <div className="post bg-white p-1 my-1">
       <div>
-        <Link to={`/profile/${user}`}>
+        <Link to={`/profile/user/${user}`}>
           <img className="round-img" src={avatar} alt="" />
           <h4>{name}</h4>
         </Link>
@@ -49,7 +50,7 @@ const PostItem = ({
                 <span className="comment-count">{comments.length}</span>
               )}
             </Link>
-            {!auth.laoding && user === auth.user._id && (
+            {!auth.loading && user === auth.user._id && (
               <button
                 onClick={e => deletePost(_id)}
                 type="button"
@@ -67,7 +68,7 @@ const PostItem = ({
 
 PostItem.defaultProps = {
   showActions: true
-}
+};
 
 PostItem.propTypes = {
   post: PropTypes.object.isRequired,
@@ -81,7 +82,6 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(
-  mapStateToProps,
-  { addLike, removeLike, deletePost }
-)(PostItem);
+export default connect(mapStateToProps, { addLike, removeLike, deletePost })(
+  PostItem
+);

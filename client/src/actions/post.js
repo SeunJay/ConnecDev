@@ -57,7 +57,7 @@ export const removeLike = id => async dispatch => {
     const res = await axios.put(`/api/posts/unlike/${id}`);
 
     dispatch({
-      type: DELETE_POSTS,
+      type: UPDATE_LIKES,
       payload: { id, likes: res.data }
     });
   } catch (error) {
@@ -126,22 +126,26 @@ export const getPost = id => async dispatch => {
     const res = await axios.get(`/api/posts/${id}`);
 
     dispatch({
-      type: GET_POST,
-      payload: res.data
+      type: `${GET_POST}_PENDING`,
+    });
+
+    dispatch({
+      type: `${GET_POST}_FULFILLED`,
+      payload: res.data,
     });
   } catch (error) {
     dispatch({
-      type: POST_ERROR,
+      type: `${GET_POST}_REJECTED`,
       payload: {
         msg: error.response.statusText,
-        status: error.response.status
-      }
+        status: error.response.status,
+      },
     });
   }
 };
 
 // Add comment
-export const AddComment = (formData, postId) => async dispatch => {
+export const addComment = (formData, postId) => async dispatch => {
   const config = {
     headers: {
       "Content-Type": "application/json"
@@ -172,9 +176,9 @@ export const AddComment = (formData, postId) => async dispatch => {
 };
 
 // Delete comment
-export const DeleteComment = (postId, commentId) => async dispatch => {
+export const deleteComment = (postId, commentId) => async dispatch => {
   try {
-    await axios.post(`/api/posts/comment/${postId}/${commentId}`);
+    await axios.delete(`/api/posts/comment/${postId}/${commentId}`);
 
     dispatch({
       type: REMOVE_COMMENT,
