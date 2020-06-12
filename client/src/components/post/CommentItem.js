@@ -8,8 +8,8 @@ import { deleteComment } from "../../actions/post";
 const CommentItem = ({
   postId,
   auth,
-  comment: { _id, text, name, avatar, user, date },
   deleteComment,
+  comment: { _id, text, name, avatar, user, date }
 }) => {
   return (
     <div className="post bg-white p-1 my-1">
@@ -39,14 +39,17 @@ const CommentItem = ({
 };
 
 CommentItem.propTypes = {
-  postId: PropTypes.string.isRequired,
+  postId: PropTypes.number.isRequired,
   comment: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  deleteComment: PropTypes.func.isRequired,
+  deleteComment: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
+const mapStateToProps = state => ({
+  auth: state.auth
 });
 
-export default connect(mapStateToProps, { deleteComment })(CommentItem);
+export default connect(
+  mapStateToProps,
+  { deleteComment }
+)(CommentItem);
